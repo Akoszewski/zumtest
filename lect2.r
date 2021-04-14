@@ -22,11 +22,11 @@ entropy <- function(vect) {
         nom <- sum(vect == v)
         denom <- length(vect)
         Ps <- nom/denom
-        skladnik <- -Ps*log10(Ps)
+        skladnik <- -Ps*log2(Ps)
         entropy <- entropy + skladnik
         print(paste("-", nom, "/", denom, "*log", nom, "/", denom, "=", round(skladnik, digits = 3)))
     }
-    entropy <- round(entropy, digits = 2)
+    # entropy <- round(entropy, digits = 2)
     print(paste("=", entropy))
     return (entropy)
 }
@@ -48,6 +48,16 @@ PsLong <- function(a1,v1,a2,v2) {
     return (counter/length(a1))
 }
 
+getConditionedVect <- function(vect, vectWithCondition, condition) {
+    res <- c()
+    for (i in 1:length(vectWithCondition)) {
+        if (vectWithCondition[i] == condition) {
+            res <- c(res, vect[i])
+        }
+    }
+    return (res)
+}
+
 Is <- function(vect1, vect2) {
     A1 <- unique(vect1)
     A2 <- unique(vect2)
@@ -58,21 +68,26 @@ Is <- function(vect1, vect2) {
             ps1 = Ps(vect1, v1)
             ps2 = Ps(vect2, v2)
             print(paste(pslong, ps1, ps2))
-            res <- res + pslong*log10(pslong/(ps1*ps2))
+            res <- res + pslong*log2(pslong/(ps1*ps2))
         }
         res <- round(res, digits = 5)
     }
-    print(paste("Is:", res))
+    return (res)
 }
 
-# entropyConditioned(vect1, vect2) {
-#     A2 <- unique(vect2)
-#     res <- 0
-#     for (v in A2) {
-#         (sum(vect2 == v)/length(vect)) * entropy(sum(vect2 == v), vect1)
-#     }
-#     return (res)
-# }
+IsFromEntropy <- function(vect1, vect2) {
+    return (entropy(vect1) - entropyConditioned(vect1, vect2))
+}
+
+entropyConditioned <- function(vect1, vect2) {
+    A2 <- unique(vect2)
+    res <- 0
+    for (v in A2) {
+        res <- res + (sum(vect2 == v)/length(vect2)) * entropy(getConditionedVect(vect1, vect2, v))
+        print(paste("res =",res))
+    }
+    return (res)
+}
 
 print("Zad 1")
 laplaceSmooth(df$a1, 3, 1)
@@ -86,9 +101,9 @@ print(paste("Min:", min(entropies)))
 cat('\n')
 
 print("Zad 3")
-Is(df$a1, df$c)
-Is(df$a2, df$c)
-Is(df$a3, df$c)
+print(paste("Is:", Is(df$a1, df$c), "Is from entropy:", IsFromEntropy(df$a1, df$c)))
+print(paste("Is:", Is(df$a2, df$c), "Is from entropy:", IsFromEntropy(df$a2, df$c)))
+print(paste("Is:", Is(df$a2, df$c), "Is from entropy:", IsFromEntropy(df$a2, df$c)))
 cat('\n')
 
 print("Zad 5")
