@@ -20,13 +20,14 @@ cat('\n')
 
 print("Zad 2")
 entropies <- c(entropy(df$a1), entropy(df$a2), entropy(df$a3))
+entropies
 print(paste("Min:", min(entropies)))
 cat('\n')
 
 print("Zad 3")
-print(paste("Is:", Is(df$a1, df$c), "Is from entropy:", IsFromEntropy(df$a1, df$c)))
-print(paste("Is:", Is(df$a2, df$c), "Is from entropy:", IsFromEntropy(df$a2, df$c)))
-print(paste("Is:", Is(df$a2, df$c), "Is from entropy:", IsFromEntropy(df$a2, df$c)))
+print(paste("IG:", IG(df$a1, df$c), "IG from entropy:", IGFromEntropy(df$a1, df$c)))
+print(paste("IG:", IG(df$a2, df$c), "IG from entropy:", IGFromEntropy(df$a2, df$c)))
+print(paste("IG:", IG(df$a2, df$c), "IG from entropy:", IGFromEntropy(df$a2, df$c)))
 cat('\n')
 
 print("Zad 5")

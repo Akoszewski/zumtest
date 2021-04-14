@@ -50,7 +50,8 @@ getConditionedVect <- function(vect, vectWithCondition, condition) {
     return (res)
 }
 
-Is <- function(vect1, vect2) {
+# chyba cos tu nie dziala lepiej uzyc IGFromEntropy
+IG <- function(vect1, vect2) {
     A1 <- unique(vect1)
     A2 <- unique(vect2)
     res <- 0
@@ -64,13 +65,13 @@ Is <- function(vect1, vect2) {
         }
         res <- round(res, digits = 5)
     }
-    if (!isSilent) print(paste("Is:",res))
+    if (!isSilent) print(paste("IG:",res))
     return (res)
 }
 
-IsFromEntropy <- function(vect1, vect2) {
+IGFromEntropy <- function(vect1, vect2) {
     res <- entropy(vect1) - entropyConditioned(vect1, vect2)
-    if (!isSilent) print(paste("Is from entropy:",res))
+    if (!isSilent) print(paste("IG from entropy:",res))
     return (res)
 }
 

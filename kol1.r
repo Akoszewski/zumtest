@@ -14,9 +14,12 @@ cat('\n')
 
 isSilent <- TRUE
 
-IsFromEntropy(df$a1, df$c)
-IsFromEntropy(df$a2, df$c)
-IsFromEntropy(df$a3, df$c)
-IsFromEntropy(df$a4, df$c)
-IsFromEntropy(df$a5, df$c)
+print("Zad 1")
+IGFromEntropy(df$a1, df$c)
+IGFromEntropy(df$a2, df$c)
+IGFromEntropy(df$a3, df$c)
+IGFromEntropy(df$a4, df$c)
+IGFromEntropy(df$a5, df$c)
+cat("\n")
 
+print("Misc:")
